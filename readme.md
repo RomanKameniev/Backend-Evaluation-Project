@@ -25,11 +25,25 @@ makeData:
 thisMonthReport:
 `https://us-central1-backend-evaluation-project.cloudfunctions.net/thisMonthReport`
 
+If you want to set-up it for yourself:
+
+- go to Firebase and create new project
+- then migrate project to the `Blaze` plan
+- from the firebase cli overwrite this project, but do not change `src/index.js` and `package.json`
+- be aware, overwriting could cause eslint and import errors
+- generate new service account and rename it to `service.json`
+- drop `service.json` into functions folder.
+- run `cd functions && yarn`
+- run firebase emulators:start --project ${your-project-name}
+
 1- If you were to extend to the project to add authentication and improved security, at a high level how would you do it?
-I will use passport or firebase auth module to login and add some hash function to cover sensitive data in db. Also cors policy will be a plus.
+\\\
+I will use the passport or firebase auth module to login and add some hash functions to cover sensitive data in DB. Also, will add cors policy.
 
 2- If this was a production server, how or with what tools would you monitor the state of the server and errors encountered?
-Logger will work well to get the data from execution (Pino logger, logRocket, etc), and every error should be throw to the Grafana or any different monitor tool.
+\\\
+The logger will work well to get the data from execution (Pino logger, logRocket, etc.), and every error should be thrown to the Grafana or any different monitor tool.
 
 3- Your API ends up being highly successful and getting 10 million requests daily. What would you do to improve scalability to handle those loads? Provide a high level explanation, no need to delve into implementation details.
-It could be handle by adding scaling. New instances of lambda function will be created and managed with load balancer. Functions should be of the minimum size. Instances also could be combined in the bigger clusters with another load balancer. And clusters combined to the super clusters. 
+\\\
+It could be handled by adding scaling. New instances of the lambda function will be created and managed with a load balancer. Functions should be of the minimum size. Instances also could be combined in the bigger clusters with another load balancer. And clusters combined into superclusters.
